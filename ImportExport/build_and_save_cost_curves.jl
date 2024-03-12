@@ -36,6 +36,7 @@ function build_and_save_cost_curves(; gpd::Dict,save_soc = true,save_results = t
     trade_curve_dict = Dict()
 
     for trade_level in trade_levels
+        println(trade_level)
         change_import_level!(m,endtime,trade_level,country)
         optimize!(m)
         check_production_zero!(m,country,endtime)
