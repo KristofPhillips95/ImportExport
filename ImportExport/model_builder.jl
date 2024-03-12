@@ -1006,7 +1006,7 @@ function update_transfer_caps_of_non_focus(m,new_cap,country)
         if c != country
             for c2 in m.ext[:sets][:connections][c]
                 if c2 != country
-                    print(c,c2,m.ext[:parameters][:connections][c][c2])
+                    #print(c,c2,m.ext[:parameters][:connections][c][c2])
                     m.ext[:parameters][:connections][c][c2] = new_cap
                 end
             end

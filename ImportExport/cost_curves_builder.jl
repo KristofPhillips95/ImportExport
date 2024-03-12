@@ -273,7 +273,7 @@ function get_soc_techs_prod(m,c,endtime)
 end
 
 function get_static_nonzero_cost_cap(m,c,VOLL)
-    print(c)
+    #print(c)
     VOM = m.ext[:parameters][:technologies][:VOM]
     fuel_price = m.ext[:parameters][:technologies][:fuel_price]
     efficiencies = m.ext[:parameters][:technologies][:efficiencies]
@@ -371,7 +371,7 @@ function get_trade_availabilities_from_supply_curves(m,c,supply_curves,supply_cu
     diff_dem = [demand[t] for t in 1:endtime]
 
     for production_price in sort!(collect(keys(supply_curves)))
-        println(production_price)
+        #println(production_price)
         import_availability[production_price] = zeros(endtime)
         export_availability[production_price] = zeros(endtime)
         for t in 1:endtime

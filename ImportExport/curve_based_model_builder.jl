@@ -132,9 +132,9 @@ function add_per_country_availability_curves_to_model!(m,import_availabilities,e
     all_prices = Dict()
     for neighbor in keys(import_availabilities)
         prices_this_neighbor = union(sort(collect(keys(import_availabilities[neighbor]))),sort(collect(keys(export_availabilities[neighbor]))))
-        print(prices_this_neighbor)
+        #print(prices_this_neighbor)
         all_prices[neighbor] = sort(collect(prices_this_neighbor))
-        print(all_prices)
+        #print(all_prices)
     end
     #Add price leves to sets 
     m.ext[:sets][:trade_prices] = all_prices
@@ -183,7 +183,7 @@ function build_per_country_trade_curve_investment_model!(m::Model,endtime,VOLL,t
 
     #Add expression representing cost of import and export 
     
-    print(neighbors)
+    #print(neighbors)
     trade_premium = m.ext[:expressions][:trade_cost] =
     @expression(m, [c = countries,n=neighbors, p = trade_prices[n], time = timesteps],
     import_v[c,n,p,time]*transport_price + export_v[c,n,p,time]*transport_price
