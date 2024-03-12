@@ -6,7 +6,7 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*100
+gpd["endtime"] = 24*365
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
@@ -89,3 +89,5 @@ for simpl in [true]
 end
 t_total = time()-t_start
 print(t_total)
+
+#t_total

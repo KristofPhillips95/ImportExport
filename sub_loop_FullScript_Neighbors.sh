@@ -1,6 +1,5 @@
 #!/bin/bash -l
 
-
 #SBATCH --cluster="genius"
 #SBATCH --job-name="ScenarioLoopImExp"
 #SBATCH --nodes="1"
