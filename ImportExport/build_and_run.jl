@@ -59,7 +59,7 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
         imported = sum([sum(JuMP.value.(m.ext[:variables][:import][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in 1:endtime])
         exported = sum([sum(JuMP.value.(m.ext[:variables][:export][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in 1:endtime])
     end
-    production = get_production(m,country)
+    production = get_production_summed(m,country,endtime)
     row = DataFrame(
         "scenario" => scenario,
         "end" => endtime,
@@ -93,7 +93,7 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
         "demand" => demand,
         "peak_demand" => peak_dem,
         "nb_techs_neighbours"=> nb_techs_neighbors,
-        "total_prod" => production,
+        # "total_prod" => production,
         "time_solve" => timer_dict["time_solve"],
         "time_build" => timer_dict["time_build"],
         "time_TC" => timer_dict["time_TC"],

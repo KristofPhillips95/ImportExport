@@ -18,8 +18,12 @@ function get_investment_costs_c(m,country)
      return Dict(t => JuMP.value.(m.ext[:expressions][:load_shedding_cost][country,t]) for t in 1:endtime)
  end
 
- function get_production(m,country)
+ function get_production(m,country,endtime)
     return Dict(tech => [JuMP.value.(m.ext[:variables][:production][country,tech,t]) for t in 1:endtime] for tech in m.ext[:sets][:technologies][country] )
+end
+
+function get_production_summed(m,country,endtime)
+    return Dict(tech => sum([JuMP.value.(m.ext[:variables][:production][country,tech,t]) for t in 1:endtime]) for tech in m.ext[:sets][:technologies][country] )
 end
 
 function get_import_and_export(m,country,model_type)
