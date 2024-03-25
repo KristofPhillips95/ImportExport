@@ -6,7 +6,7 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*1
+gpd["endtime"] = 24*365
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
@@ -22,7 +22,7 @@ stepsizes = [100]
 target_caps_for_curves = ["endo_invest","TYNDP"]
 target_caps_for_curves = ["endo_invest"]
 geo_scopes = [["DE00","NL00","FR00","UK00","BE00","LUG1"],"All"]
-trans_caps_others = ["S"]
+trans_caps_others = ["S",1e10]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 
 results = DataFrame()
