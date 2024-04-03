@@ -18,7 +18,7 @@ gpd["disc_rate"] = 0.07
 
 
 types = ["TCPC","isolated","NTC","TCS"]
-stepsizes = [1000,100,10]
+stepsizes = [1000,100,10,1]
 target_caps_for_curves = ["endo_invest","TYNDP"]
 target_caps_for_curves = ["endo_invest"]
 geo_scopes = [["DE00","NL00","FR00","UK00","BE00","LUG1"]]

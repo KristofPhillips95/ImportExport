@@ -15,7 +15,7 @@ gpd["stepsize"] = 10
 gpd["transport_price"] = 0.1
 gpd["simplified"] = true
 gpd["disc_rate"] = 0.07
-gpd["geo_scope"] = ["BE00","DE00","NL00","UK00","FR00","NL00"]
+gpd["geo_scope"] = ["BE00","FR00"]
 # gpd["target_cap_for_curves"] = "endo_invest"
 
 
@@ -35,7 +35,7 @@ gpd["target_cap_for_curves"] = "endo_invest"
 gpd["trans_cap_other"] = 0
 m2 = full_build_and_return_investment_model(m2,global_param_dict= gpd)
 
-gpd["type"] = "TradeCurves_PC"
+gpd["type"] = "TCPC"
 m3 = full_build_and_return_investment_model(m3,global_param_dict= gpd)
 
 
