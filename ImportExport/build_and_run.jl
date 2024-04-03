@@ -52,13 +52,15 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
     if type == "isolated" 
         imported = 0
         exported = 0
-    elseif type == "TCS" || type == "TCPC"
-        imported = sum(JuMP.value.(m.ext[:variables][:import]))
-        exported = sum(JuMP.value.(m.ext[:variables][:export]))
-    elseif type == "NTC"
-        imported = sum([sum(JuMP.value.(m.ext[:variables][:import][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in 1:endtime])
-        exported = sum([sum(JuMP.value.(m.ext[:variables][:export][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in 1:endtime])
-    end
+        import_cost = 0 
+        export_rev = 0
+        cr_i,cr_e = 0,0
+    elseif type == "TCS" || type == "TCPC" || type == "NTC"
+        imported_t,exported_t = get_import_and_export(m,country,type)
+        imported = sum(imported_t)
+        exported = sum(exported_t)
+        import_cost,export_rev,cr_i,cr_e = get_total_trade_costs_and_rents(m,country,type)
+        end
     production = get_production_summed(m,country,endtime)
     row = DataFrame(
         "scenario" => scenario,
@@ -90,6 +92,10 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
         "w_off_prod"=> production["w_off"],
         "imported" => imported,
         "exported" => exported,
+        "import_cost" => import_cost,
+        "export_rev" => export_rev, 
+        "cong_rent_i" => cr_i,
+        "cong_rent_e" => cr_e,
         "demand" => demand,
         "peak_demand" => peak_dem,
         "nb_techs_neighbours"=> nb_techs_neighbors,
@@ -165,7 +171,7 @@ function build_with_trade_curves!(m,gpd,endtime,scenario,year,CY,CY_ts,country,V
 
 end
 
-function full_build_and_return_investment_model(m::Model ; global_param_dict:: Dict,timer_dict::Dict)
+function full_build_and_return_investment_model(m::Model ; global_param_dict:: Dict,timer_dict::Dict = Dict())
     endtime = global_param_dict["endtime"]
     CY = global_param_dict["Climate_year"]
     CY_ts = global_param_dict["Climate_year_ts"]
