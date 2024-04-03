@@ -806,6 +806,7 @@ function build_base_investment_model_v2!(m::Model,endtime,VOLL,disc_rate = 0.07,
     /(1-(1+disc_rate)^(-investment_lifetime[c][tech]))
     * length(timesteps)/8760
     )
+    
 
     #############
     #Constraints
@@ -887,6 +888,7 @@ function build_NTC_investment_model!(m:: Model,endtime,VOLL,transport_price,disc
 
     el_import = m.ext[:variables][:import] = @variable(m,[c = countries, neighbor = connections[c] ,time = timesteps], base_name = "import")
     el_export = m.ext[:variables][:export]=  @variable(m,[c = countries, neighbor = connections[c] ,time = timesteps], base_name = "export")
+
 
     m.ext[:constraints][:import] = @constraint(m,[c = countries, neighbor = connections[c] ,time = timesteps],
         maximum(transfer_capacities[c][neighbor]) >= el_import[c,neighbor,time] >= 0
@@ -1092,6 +1094,23 @@ function save_model_results(m,gpd)
     path = joinpath("Results","InvestmentModelResults","$(name).csv")
     println("Writing reults to: ",path)
     CSV.write(path,row)
+end
+
+function save_NTC_import_and_export_profiles_and_duals(m,gpd)
+    endtime = gpd["endtime"]
+    CY = gpd["Climate_year"]
+    CY_ts = gpd["Climate_year_ts"]
+    VOLL = gpd["ValOfLostLoad"]
+    transp_price = gpd["transport_price"]
+    country = gpd["country"]
+    scenario = gpd["scenario"]
+    year = gpd["year"]
+    type = gpd["type"]
+    simplified = gpd["simplified"]
+    target_cap_for_curves = gpd["target_cap_for_curves"]
+    disc_rate = gpd["disc_rate"]
+    stepsize = gpd["stepsize"]
+
 end
 
 ##Helper methods 

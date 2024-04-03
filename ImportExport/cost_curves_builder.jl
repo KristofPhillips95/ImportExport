@@ -117,6 +117,11 @@ function change_import_level!(m,endtime,import_level,country)
         set_normalized_rhs(m.ext[:constraints][:demand_met][country,t],import_level)
     end
 end
+function change_import_level_t!(m,import_level_t,country)
+    for t in 1:length(import_level_t)
+        set_normalized_rhs(m.ext[:constraints][:demand_met][country,t],import_level_t[t])
+    end
+end
 
 #Some functions that check if expected values are indeed found for import-curve models
 function check_equal_soc_for_all_but(m1,m2,country,endtime)
