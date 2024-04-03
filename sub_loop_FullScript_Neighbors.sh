@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 #SBATCH --cluster="genius"
-#SBATCH --job-name="ScenarioLoopImExp"
+#SBATCH --job-name="ImpExpDirNeighb"
 #SBATCH --nodes="1"
 #SBATCH --mail-user="kristof.phillips@kuleuven.be"
 #SBATCH --mail-type=BEGIN,END,FAIL
