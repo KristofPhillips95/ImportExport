@@ -21,7 +21,7 @@ types = ["TCPC","isolated","NTC","TCS"]
 stepsizes = [100]
 target_caps_for_curves = ["endo_invest","TYNDP"]
 target_caps_for_curves = ["endo_invest"]
-geo_scopes = [["DE00","NL00","FR00","UK00","BE00","LUG1"],"All"]
+geo_scopes = [["DE00","NL00","FR00","UK00","BE00"],"All"]
 trans_caps_others = ["S",1e10]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 

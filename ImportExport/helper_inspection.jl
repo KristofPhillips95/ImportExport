@@ -22,6 +22,14 @@ function get_investment_costs_c(m,country)
     return Dict(tech => [JuMP.value.(m.ext[:variables][:production][country,tech,t]) for t in 1:endtime] for tech in m.ext[:sets][:technologies][country] )
 end
 
+function get_curtailment(m,country,endtime)
+    return [JuMP.value.(m.ext[:variables][:curtailment][country,t]) for t in 1:endtime]
+end
+
+function get_curtailment_summed(m,country,endtime)
+    return sum([JuMP.value.(m.ext[:variables][:curtailment][country,t]) for t in 1:endtime])
+end
+
 function get_production_summed(m,country,endtime)
     return Dict(tech => sum([JuMP.value.(m.ext[:variables][:production][country,tech,t]) for t in 1:endtime]) for tech in m.ext[:sets][:technologies][country] )
 end

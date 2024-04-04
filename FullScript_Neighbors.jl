@@ -18,16 +18,16 @@ gpd["disc_rate"] = 0.07
 
 
 types = ["TCPC","isolated","NTC","TCS"]
-stepsizes = [1000,100,10,1]
+stepsizes = [1000,100]
 target_caps_for_curves = ["endo_invest","TYNDP"]
 target_caps_for_curves = ["endo_invest"]
-geo_scopes = [["DE00","NL00","FR00","UK00","BE00","LUG1"]]
+geo_scopes = [["DE00","NL00","FR00","UK00","BE00","LUG1"],["DE00","NL00","FR00","UK00","BE00"],["DE00","NL00","UK00","BE00","LUG1"]]
 trans_caps_others = ["S",0,1e10]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_neighbors_only_$(gpd["endtime"])"
+run_name = "Loop_4models_neighbors_only_LUGFR_out_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
