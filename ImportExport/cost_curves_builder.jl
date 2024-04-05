@@ -95,7 +95,7 @@ function build_model_for_import_curve(import_level,soc,production,global_param_d
     endtime = global_param_dict["endtime"]
     country = global_param_dict["country"]
     simplified = global_param_dict["simplified"]
-    if !(simplified)
+    if !(simplified) & !(soc == nothing)
         fix_soc_decisions(m,soc,production,1:endtime,country)
         #print("WATCH OUT!!! soc decisions not fixed")
     end
