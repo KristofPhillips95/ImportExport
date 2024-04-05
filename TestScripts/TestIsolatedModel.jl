@@ -84,6 +84,10 @@ for tech in technologies
     println(tech, ": ",get_capacity_factor_invested_tech(m_isolated,country,tech))
 end
 
+##Check nodal balance 
+include("../ImportExport/helper_inspection.jl")
+get_production(m_isolated,country,endtime)
+
 #Check that if a certain technology is without cost, model depends only on this
 tech_of_choice = "w_off"
 m_only_bel.ext[:parameters][:investment_technologies][:cost][country][tech_of_choice] = 0
