@@ -4,7 +4,7 @@ using Gurobi
 using Statistics
 
 scenario = "National Trends"
-endtime = 24*50
+endtime = 24*1
 year = 2025
 CY = 1984
 CY_ts = 2012
@@ -87,7 +87,7 @@ end
 ##Check nodal balance 
 include("../ImportExport/helper_inspection.jl")
 get_production(m_isolated,country,endtime)
-
+m_isolated.ext[:objective]
 #Check that if a certain technology is without cost, model depends only on this
 tech_of_choice = "w_off"
 m_only_bel.ext[:parameters][:investment_technologies][:cost][country][tech_of_choice] = 0
