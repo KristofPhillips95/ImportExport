@@ -8,6 +8,14 @@ function build_and_save_cost_curves(; gpd::Dict,save_soc = true,save_results = t
     simplified = gpd["simplified"]
     country = gpd["country"]
 
+    for i in 1:5
+        println("############################################")
+    end
+    println("##Building dispatch model for trade curves##")
+    for i in 1:5
+        println("############################################")
+    end
+
     # If we are not working with the simplified model, intertemporal constraints have to be taken care of to prevent issues. 
     if !(simplified)
         #Optimize dispatch model with given capacities from input data
@@ -36,7 +44,13 @@ function build_and_save_cost_curves(; gpd::Dict,save_soc = true,save_results = t
     trade_curve_dict = Dict()
 
     for trade_level in trade_levels
+        for i in 1:2
+            println("############################################")
+        end
         println(trade_level)
+        for i in 1:2
+            println("############################################")
+        end
         change_import_level!(m,endtime,trade_level,country)
         optimize!(m)
         check_production_zero!(m,country,endtime)

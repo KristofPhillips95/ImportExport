@@ -3,6 +3,9 @@ include("curve_based_model_builder.jl")
 include("helper_inspection.jl")
 
 function full_build_and_optimize_investment_model(m::Model ; global_param_dict:: Dict)
+    println("Building investment model: ")
+    println(gpd)
+    println()
     endtime = global_param_dict["endtime"]
     CY = global_param_dict["Climate_year"]
     CY_ts = global_param_dict["Climate_year_ts"]

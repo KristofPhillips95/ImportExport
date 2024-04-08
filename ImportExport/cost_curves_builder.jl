@@ -182,6 +182,16 @@ end
 function check_production_zero!(m,country,endtime)
     for t in 1:endtime
         for tech in m.ext[:sets][:technologies][country]
+
+            if round(JuMP.value.(m.ext[:variables][:production][country,tech,t]), digits=3) != 0
+                println("Assertion failed at time $t:")
+                println("Assertion failed for tech time $tech:")
+            end
+
+        end
+    end
+    for t in 1:endtime
+        for tech in m.ext[:sets][:technologies][country]
             @assert(JuMP.value.(m.ext[:variables][:production][country,tech,t]) == 0)
         end
     end
