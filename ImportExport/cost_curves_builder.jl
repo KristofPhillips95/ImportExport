@@ -26,7 +26,7 @@ function optimize_and_retain_intertemporal_decisions(global_param_dict)
     
     #Based on the target_cap_for_curves parameter, make the list of countries (1 or zero)
     # in which investment is possible
-    if target_cap_for_curves == "TYNDP"
+    if target_cap_for_curves in [ "TYNDP","0"]  
         inv_country = []
     elseif target_cap_for_curves == "endo_invest"
         inv_country = [country]
@@ -47,6 +47,10 @@ function optimize_and_retain_intertemporal_decisions(global_param_dict)
     elseif target_cap_for_curves == "endo_invest"
         remove_capacity_country!(m,country,simplified)
         build_NTC_investment_model!(m,endtime,VOLL,transport_price,disc_rate,simplified)
+    elseif target_cap_for_curves == "0"
+        remove_capacity_country!(m,country,simplified)
+        build_NTC_dispatch_model!(m,endtime,VOLL,transport_price,simplified)
+        change_import_level!(m,endtime,0,country)
     end
     optimize!(m)
     soc = JuMP.value.(m.ext[:variables][:soc])
