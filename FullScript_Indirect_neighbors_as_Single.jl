@@ -17,22 +17,22 @@ gpd["transport_price"] = 0.1
 gpd["disc_rate"] = 0.07
 
 
-types = ["NTC","TCS"]
+types = ["NTC"]
 stepsizes = [100]
 target_caps_for_curves = ["0","endo_invest","TYNDP"]
 #target_caps_for_curves = ["endo_invest"]
 geo_scopes = ["All"]
-trans_caps_others = ["S"]
+trans_caps_others = ["S",1e10,("S",1e10)]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_indirect_neighbors_storage_schedule_opts_$(gpd["endtime"])"
+run_name = "Loop_4models_indirect_neighbors_as_single_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
 t_start = time()
-for simpl in [false]
+for simpl in [false,true]
     gpd["simplified"] = simpl
     for type in types
         gpd["type"] = type
