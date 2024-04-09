@@ -14,7 +14,7 @@ gpd["year"] = 2025
 gpd["stepsize"] = 100
 gpd["transport_price"] = 0.1
 gpd["simplified"] = true
-gpd["target_cap_for_curves"] = "endo_invest"
+gpd["target_cap_for_curves"] = "0"
 gpd["disc_rate"] = 0.07
 gpd["geo_scope"] = ["BE00", "UK00"]
 

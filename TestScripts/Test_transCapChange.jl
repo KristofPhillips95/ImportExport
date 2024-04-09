@@ -19,7 +19,6 @@ disc_rate = gpd["disc_rate"] = 0.07
 gpd["target_cap_for_curves"] = "endo_invest"
 geo_scope = gpd["geo_scope"] = ["BE00","DE00","NL00","FR00","UK00","LUG"]
 
-
 m1 = Model(optimizer_with_attributes(Gurobi.Optimizer))
 c_excluded = get_list_of_excluded(geo_scope,scenario,year,CY)
 define_sets!(m1,scenario,year,CY,c_excluded,[country],simplified)
@@ -30,7 +29,9 @@ update_transfer_caps_of_non_focus(m1,0,country,)
 build_NTC_investment_model!(m1,endtime,VOLL,transp_price,disc_rate,simplified)
 
 
-gpd["type"] = "TradeCurves_PC"
+gpd["type"] = "TCPC"
+m3 = Model(optimizer_with_attributes(Gurobi.Optimizer))
+
 m3 = full_build_and_return_investment_model(m3,global_param_dict= gpd)
 
 m1.ext[:parameters][:connections]

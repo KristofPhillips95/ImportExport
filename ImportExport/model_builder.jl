@@ -1003,17 +1003,47 @@ function fix_soc_decisions_from_dict(m::Model,soc_given,production_given,timeste
 end
 
 #Other model adaptations
-function update_transfer_caps_of_non_focus(m,new_cap,country) 
-    for c in m.ext[:sets][:countries]
-        if c != country
-            for c2 in m.ext[:sets][:connections][c]
-                if c2 != country
-                    #print(c,c2,m.ext[:parameters][:connections][c][c2])
-                    m.ext[:parameters][:connections][c][c2] = new_cap
+function update_transfer_caps_of_non_focus(m,new_cap,country)
+     
+    if new_cap isa Number
+        #When new_cap is single number, we set all lines that are not connected to the focus region to the given value. 
+        #Choosing a high value allows us to effectively make a single node of all non-focus regions whilst respecting transmission 
+        #Capacity towards the focus region
+        for c in m.ext[:sets][:countries]
+            if c != country
+                for c2 in m.ext[:sets][:connections][c]
+                    if c2 != country
+                        #print(c,c2,m.ext[:parameters][:connections][c][c2])
+                        m.ext[:parameters][:connections][c][c2] = new_cap
+                    end
+                end
+            end
+        end
+    else 
+
+        @assert(new_cap isa Tuple)
+        #When new_cap is a tuple, we will use the first value for the direct neighbors of the focus region, and the second value 
+        #for all indirect neighbors
+
+        @assert(new_cap[1] == "S")
+        println("Changing capacities of indirect indirect neighbors")
+        direct_neighbors = m.ext[:sets][:connections][country]
+        for c in m.ext[:sets][:countries]
+            if !(c == country || c in direct_neighbors)
+                for c2 in m.ext[:sets][:connections][c]
+                    if !(c2 == country || c2 in direct_neighbors)
+                        println(c,c2,m.ext[:parameters][:connections][c][c2])
+                        m.ext[:parameters][:connections][c][c2] = new_cap[2]
+                        #m.ext[:parameters][:connections][c2][c] = new_cap[2]
+                        println(c,c2,m.ext[:parameters][:connections][c][c2])
+                    end
                 end
             end
         end
     end
+        
+
+
 end
 
 ##Saving results 
