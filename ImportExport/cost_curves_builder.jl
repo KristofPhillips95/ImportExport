@@ -150,7 +150,7 @@ function check_net_import(m,country,import_level,endtime,simplified)
 
     net_import = [sum(JuMP.value.(m.ext[:variables][:import][country,nb,t]) - JuMP.value.(m.ext[:variables][:export][country,nb,t]) for nb in m.ext[:sets][:connections][country]) for t in 1:endtime]
     for t in 1:endtime
-        if round(net_import[t] + JuMP.value.(m.ext[:variables][:load_shedding][country, t]), digits=3) != import_level
+        if round(net_import[t] -JuMP.value.(m.ext[:variables][:elec_dump][country,t]) + JuMP.value.(m.ext[:variables][:load_shedding][country, t]), digits=3) != import_level
             print(keys(m.ext[:variables]))
 
             println("Assertion failed at time $t:")
@@ -172,7 +172,7 @@ function check_net_import(m,country,import_level,endtime,simplified)
             println("Caps: ",m.ext[:parameters][:technologies][:capacities][country] )
             println("Charge: ", Dict(tech => JuMP.value.(m.ext[:variables][:charge][country,tech,t]) for tech in m.ext[:sets][:storage_technolgies][country]  ))
         end
-        @assert( round(net_import[t] + JuMP.value.(m.ext[:variables][:load_shedding][country,t]) ,digits = 3)  == import_level)
+        @assert( round(net_import[t]-JuMP.value.(m.ext[:variables][:elec_dump][country,t]) + JuMP.value.(m.ext[:variables][:load_shedding][country,t]) ,digits = 3)  == import_level)
     end
 end
 

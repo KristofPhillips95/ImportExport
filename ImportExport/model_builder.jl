@@ -167,8 +167,8 @@ function define_investment_sets!(m,investment_countries)
     for country in investment_countries
         # print(m.ext[:sets][:technologies])
         #m.ext[:sets][:investment_technologies][country] = reading.technology
-        println(Set(reading.technology))
-        println(Set(m.ext[:sets][:technologies][country]))
+        #println(Set(reading.technology))
+       # println(Set(m.ext[:sets][:technologies][country]))
         m.ext[:sets][:investment_technologies][country] = intersect(Set(reading.technology),Set(m.ext[:sets][:technologies][country]))
         #print(m.ext[:sets][:technologies][country])
         #non_inv_tech = setdiff(Set(m.ext[:sets][:technologies][country]),Set(reading.technology))
@@ -689,6 +689,7 @@ function build_NTC_dispatch_model!(m:: Model,endtime,VOLL,transport_price,simpli
 
     el_import = m.ext[:variables][:import] = @variable(m,[c = countries, neighbor = connections[c] ,time = timesteps], base_name = "import")
     el_export = m.ext[:variables][:export]=  @variable(m,[c = countries, neighbor = connections[c] ,time = timesteps], base_name = "export")
+    elec_dump = m.ext[:variables][:elec_dump]=  @variable(m,[c = countries,time = timesteps], base_name = "elec_dump",lower_bound = 0 )
 
     m.ext[:constraints][:import] = @constraint(m,[c = countries, neighbor = connections[c] ,time = timesteps],
         maximum(transfer_capacities[c][neighbor]) >= el_import[c,neighbor,time] >= 0
@@ -703,11 +704,11 @@ function build_NTC_dispatch_model!(m:: Model,endtime,VOLL,transport_price,simpli
 
     if simplified
         m.ext[:constraints][:demand_met] = @constraint(m,[c = countries, time = timesteps],
-            total_production_timestep[c,time] + load_shedding[c,time] - curtailment[c,time] + sum(el_import[c,nb,time] for nb in connections[c])  == demand[c][time] + sum(el_export[c,nb,time] for nb in connections[c])
+            total_production_timestep[c,time] + load_shedding[c,time] - curtailment[c,time] -elec_dump[c,time] + sum(el_import[c,nb,time] for nb in connections[c])  == demand[c][time] + sum(el_export[c,nb,time] for nb in connections[c])
         )
     else
         m.ext[:constraints][:demand_met] = @constraint(m,[c = countries, time = timesteps],
-            total_production_timestep[c,time] + load_shedding[c,time] - curtailment[c,time] + sum(el_import[c,nb,time] for nb in connections[c])  == demand[c][time] + sum(el_export[c,nb,time] for nb in connections[c])  + sum(charge[c,tech,time] for tech in storage_technologies[c])
+            total_production_timestep[c,time] + load_shedding[c,time] - curtailment[c,time]-elec_dump[c,time] + sum(el_import[c,nb,time] for nb in connections[c])  == demand[c][time] + sum(el_export[c,nb,time] for nb in connections[c])  + sum(charge[c,tech,time] for tech in storage_technologies[c])
         )
     end
     VOM_cost = m.ext[:expressions][:VOM_cost]

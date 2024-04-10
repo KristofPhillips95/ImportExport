@@ -48,11 +48,11 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
     else
         nb_techs_neighbors = 0
     end
-    if !(simplified)
-        charge = sum(JuMP.value.(m.ext[:variables][:charge][country,tech,t]) for tech in m.ext[:sets][:storage_technologies][country] for t in 1:endtime)
-    else
-        charge = 0 
-    end
+    # if !(simplified)
+    #     charge = sum(JuMP.value.(m.ext[:variables][:charge][country,tech,t]) for tech in m.ext[:sets][:storage_technologies][country] for t in 1:endtime)
+    # else
+    #     charge = 0 
+    # end
     if type == "isolated" 
         imported = 0
         exported = 0
