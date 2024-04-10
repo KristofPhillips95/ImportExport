@@ -166,9 +166,13 @@ function define_investment_sets!(m,investment_countries)
 
     for country in investment_countries
         # print(m.ext[:sets][:technologies])
-        m.ext[:sets][:investment_technologies][country] = reading.technology
+        #m.ext[:sets][:investment_technologies][country] = reading.technology
+        println(Set(reading.technology))
+        println(Set(m.ext[:sets][:technologies][country]))
+        m.ext[:sets][:investment_technologies][country] = intersect(Set(reading.technology),Set(m.ext[:sets][:technologies][country]))
         #print(m.ext[:sets][:technologies][country])
-        non_inv_tech = setdiff(Set(m.ext[:sets][:technologies][country]),Set(reading.technology))
+        #non_inv_tech = setdiff(Set(m.ext[:sets][:technologies][country]),Set(reading.technology))
+        non_inv_tech = setdiff(Set(m.ext[:sets][:technologies][country]),Set(m.ext[:sets][:investment_technologies][country]))
         # @show(non_inv_tech)
         m.ext[:sets][:non_investment_technologies][country] = non_inv_tech
     end
@@ -1032,10 +1036,10 @@ function update_transfer_caps_of_non_focus(m,new_cap,country)
             if !(c == country || c in direct_neighbors)
                 for c2 in m.ext[:sets][:connections][c]
                     if !(c2 == country || c2 in direct_neighbors)
-                        println(c,c2,m.ext[:parameters][:connections][c][c2])
+                        #println(c,c2,m.ext[:parameters][:connections][c][c2])
                         m.ext[:parameters][:connections][c][c2] = new_cap[2]
                         #m.ext[:parameters][:connections][c2][c] = new_cap[2]
-                        println(c,c2,m.ext[:parameters][:connections][c][c2])
+                        #println(c,c2,m.ext[:parameters][:connections][c][c2])
                     end
                 end
             end
