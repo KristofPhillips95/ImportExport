@@ -17,17 +17,17 @@ gpd["transport_price"] = 0.1
 gpd["disc_rate"] = 0.07
 
 
-types = ["TCS"]
+types = ["TCS","NTC"]
 stepsizes = [1000,500,200,100,50]
-target_caps_for_curves = ["TYNDP","endo_invest"]
+target_caps_for_curves = ["endo_invest"]
 #target_caps_for_curves = ["endo_invest"]
 geo_scopes = ["All"]
-trans_caps_others = ["S",1e10]
+trans_caps_others = ["S"]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_granularity_$(gpd["endtime"])"
+run_name = "Loop_4models_granularity_2_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
