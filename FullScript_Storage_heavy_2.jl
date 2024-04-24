@@ -15,13 +15,13 @@ gpd["scenario"] = "National Trends"
 gpd["year"] = 2025
 gpd["transport_price"] = 0.1
 gpd["disc_rate"] = 0.07
-gpd["fix_soc"] = true
+gpd["fix_soc"] = false
 
 
 
 types = ["NTC","TCS"]
 stepsizes = [100]
-target_caps_for_curves = ["TYNDP","endo_invest","0"]
+target_caps_for_curves = ["TYNDP","endo_invest"]
 #target_caps_for_curves = ["endo_invest"]
 geo_scopes = [["FI00", "SE02","DKW1","SE04","NOS0","SE03"]]
 trans_caps_others = ["S"]
