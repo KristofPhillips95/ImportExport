@@ -6,7 +6,7 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*10
+gpd["endtime"] = 24*365
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
@@ -21,18 +21,18 @@ types = ["NTC","TCS","TCPC"]
 stepsizes = [100]
 target_caps_for_curves = ["TYNDP","endo_invest","0"]
 #target_caps_for_curves = ["endo_invest"]
-geo_scopes = ["All"]
+geo_scopes = [["FI00", "SE02","DKW1","SE04","NOS0","SE03"]]
 trans_caps_others = ["S"]
 # types = ["TradeCurves"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_storage_heavy_$(gpd["country"])_$(gpd["endtime"])"
+run_name = "Loop_4models_storage_heavy_red_geo_$(gpd["country"])_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
 t_start = time()
-for simpl in [false]
+for simpl in [true,false]
     gpd["simplified"] = simpl
     for type in types
         gpd["type"] = type
