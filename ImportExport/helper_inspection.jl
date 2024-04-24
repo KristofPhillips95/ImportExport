@@ -73,7 +73,7 @@ function get_pc_import_and_export(m,country,model_type,soc = nothing,production=
         net_import_profile = import_-export_
         println("Solving auxiliary model for congestion rents")
         m_dp = build_model_for_import_curve(0,soc,production,gpd)
-        change_import_level_t!(m_dp,net_import_profile,"BE00")
+        change_import_level_t!(m_dp,net_import_profile,country)
         optimize!(m_dp)
         import_,export_ = get_pc_import_and_export(m_dp,country,"NTC")
     else
