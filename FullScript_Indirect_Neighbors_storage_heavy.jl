@@ -6,7 +6,7 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*50
+gpd["endtime"] = 24*365
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
@@ -27,7 +27,7 @@ trans_caps_others = ["S"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_indirect_neighbors_storage_heavy_country_SE03_$(gpd["endtime"])"
+run_name = "Loop_4models_indirect_neighbors_storage_heavy_country_$(gpd["country"])_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)

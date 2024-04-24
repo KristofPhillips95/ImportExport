@@ -15,4 +15,4 @@ cd $VSC_DATA/ImportExportCurves
 
 echo "Starting runs"
 
-julia FullScript_Indirect_Neighbors_storage_heavy.jl
+julia FullScript_storage_heavy.jl

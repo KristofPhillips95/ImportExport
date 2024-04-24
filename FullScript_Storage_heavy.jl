@@ -6,11 +6,11 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*365
+gpd["endtime"] = 24*10
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
-gpd["country"] = "NOM1"
+gpd["country"] = "SE03"
 gpd["scenario"] = "National Trends"
 gpd["year"] = 2025
 gpd["transport_price"] = 0.1
@@ -27,12 +27,12 @@ trans_caps_others = ["S"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_storage_heavy_$(gpd["endtime"])"
+run_name = "Loop_4models_storage_heavy_$(gpd["country"])_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
 t_start = time()
-for simpl in [false,true]
+for simpl in [false]
     gpd["simplified"] = simpl
     for type in types
         gpd["type"] = type
