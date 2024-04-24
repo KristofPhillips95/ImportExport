@@ -17,7 +17,7 @@ function build_and_save_cost_curves(; gpd::Dict,save_soc = true,save_results = t
     end
 
     # If we are not working with the simplified model, intertemporal constraints have to be taken care of to prevent issues. 
-    if !(simplified)
+    if !(simplified) & gpd["fix_soc"]
         #Optimize dispatch model with given capacities from input data
         m1,soc,production =  optimize_and_retain_intertemporal_decisions(gpd)
         if save_soc
