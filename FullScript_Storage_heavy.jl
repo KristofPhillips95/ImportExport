@@ -29,7 +29,7 @@ trans_caps_others = ["S"]
 #Start looping over desired global parameters: 
 results = DataFrame()
 
-run_name = "Loop_4models_storage_heavy_red_geo$(gpd["fix_soc"])_$(gpd["country"])_$(gpd["endtime"])"
+run_name = "Loop_4models_storage_heavy_red_geo_fsoc$(gpd["fix_soc"])_$(gpd["country"])_$(gpd["endtime"])"
 
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
