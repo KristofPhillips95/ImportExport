@@ -41,7 +41,7 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
     peak_dem = maximum(m.ext[:timeseries][:demand][country][1:endtime])
     demand = sum(m.ext[:timeseries][:demand][country][1:endtime])
     production = sum(JuMP.value.(m.ext[:variables][:production][country,tech,t]) for tech in m.ext[:sets][:technologies][country] for t in 1:endtime)
-    water_dumping = sum(JuMP.value.(m.ext[:variables][:water_dumping][country,tech,t]) for tech in m.ext[:sets][:hydro_flow_technologies][country] for t in 1:endtime)
+    #water_dumping = sum(JuMP.value.(m.ext[:variables][:water_dumping][country,tech,t]) for tech in m.ext[:sets][:hydro_flow_technologies][country] for t in 1:endtime)
     curtailment = get_curtailment_summed(m,country,gpd["endtime"])
     if type == "NTC"
         nb_techs_neighbors = sum(length(m.ext[:sets][:technologies][neighbor]) for neighbor in m.ext[:sets][:connections][country])

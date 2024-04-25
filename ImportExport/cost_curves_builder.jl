@@ -213,6 +213,7 @@ function write_prices(curve_dict,import_levels,global_param_dict)
     target_cap_for_curves = global_param_dict["target_cap_for_curves"]
     stepsize = global_param_dict["stepsize"]
     geo_scope = global_param_dict["geo_scope"]
+    fix_soc = global_param_dict["fix_soc"]
 
     geo_scope_str = join(geo_scope, "_")
 
@@ -225,7 +226,7 @@ function write_prices(curve_dict,import_levels,global_param_dict)
     # for col in names(df_prices)
     #      df_prices[!, col] = parse.(Float64, df_prices[!, col])
     # end
-    path = joinpath("Results","TradeCurves","import_price_curves$(year)_$(CY_ts)_$(scenario)_$(endtime)_s_$(simplified)_tc_$(country)_$(target_cap_for_curves)_gs_$(geo_scope_str)_$(stepsize).csv")
+    path = joinpath("Results","TradeCurves","import_price_curves$(year)_$(CY_ts)_$(scenario)_$(endtime)_s_$(simplified)_$(fix_soc)_tc_$(country)_$(target_cap_for_curves)_gs_$(geo_scope_str)_$(stepsize).csv")
 
     CSV.write(path,df_prices)
 end
