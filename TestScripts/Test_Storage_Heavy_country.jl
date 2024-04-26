@@ -127,6 +127,7 @@ optimize!(m1)
 optimize!(m2)
 optimize!(m3)
 
+get_net_import_and_export(m3,"SE03","TCS")[1]
 get_import_and_export(m3,"SE03","TCS")[1]
 get_import_and_export(m3,"SE03","TCS")[2]
 
@@ -134,6 +135,10 @@ JuMP.value.(m3.ext[:variables][:import])
 
 get_total_trade_costs_and_rents(m3,"SE03","TCS")
 get_pc_import_and_export(m3,"SE03","TCS")[1]
+
+pc_imports_and_exports = get_pc_import_and_export(m3,"SE03","TCS")
+[sum(pc_imports_and_exports[1][nb][t] for nb in keys(pc_imports_and_exports[1])) for t in 1:gpd["endtime"]]
+
 get_pc_import_and_export(m3,"SE03","TCS")[2]
 
 JuMP.value.(m1.ext[:variables][:invested_cap])
