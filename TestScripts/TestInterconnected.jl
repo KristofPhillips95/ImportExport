@@ -11,12 +11,11 @@ VOLL = 8000
 
 results = DataFrame()
 
-country = "BE00"
+country = "SE03"
 simplified = false
 
 m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 define_sets!(m,scenario,year,CY,[],[country],simplified)
-
 process_parameters!(m,scenario,year,CY,[country],simplified)
 process_time_series!(m,scenario,year,CY_ts,simplified,endtime)
 remove_capacity_country!(m,country)
@@ -25,7 +24,7 @@ optimize!(m)
 
 
 #Check if production + net_import equals demand 
-country_plot = "DE00"
+country_plot = "SE03"
 plot_country_is_target = country_plot == country
 
 c_import = [sum(JuMP.value.(m.ext[:variables][:import][country_plot,neighbor,t] for neighbor in m.ext[:sets][:connections][country_plot])) for t in 1:endtime]

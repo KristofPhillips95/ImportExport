@@ -104,7 +104,7 @@ function get_pc_import_and_export_price(m,country,model_type)
     #     export_ = [JuMP.value.(sum(m.ext[:variables][:export][country,p,t] for p in trade_prices)) for t in timesteps]
     elseif model_type == "TCPC"
         trade_prices = m.ext[:sets][:trade_prices]
-        import_pc,export_pc = get_pc_pp_import_and_export(m,"BE00","TCPC")
+        import_pc,export_pc = get_pc_pp_import_and_export(m,country,"TCPC")
 
         import_p = get_pc_trade_price(import_pc,"i",gpd["transport_price"])
         export_p= get_pc_trade_price(export_pc,"e",gpd["transport_price"])
@@ -157,10 +157,10 @@ function get_total_trade_costs(m,country,type)
         import_p,export_p = get_pc_import_and_export_price(m,country,type)
 
     elseif type =="TCS"
-        import_,export_ = get_import_and_export(m,"BE00","TCS")
+        import_,export_ = get_import_and_export(m,country,"TCS")
         net_import_profile = import_-export_
         m_dp = build_model_for_import_curve(0,nothing,nothing,gpd)
-        change_import_level_t!(m_dp,net_import_profile,"BE00")
+        change_import_level_t!(m_dp,net_import_profile,country)
         optimize!(m_dp)
 
         import_v, export_v = get_pc_import_and_export(m_dp,country,"NTC")
