@@ -67,6 +67,7 @@ function full_build_and_optimize_investment_model(m::Model ; global_param_dict::
         end
     production = get_production_summed(m,country,endtime)
     row = DataFrame(
+        "country" =>country,
         "scenario" => scenario,
         "end" => endtime,
         "year" => year,

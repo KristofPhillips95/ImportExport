@@ -36,6 +36,15 @@ end
 
 function get_import_and_export(m,country,model_type)
     timesteps = collect(1:length(m.ext[:timeseries][:demand][country]))
+    pc_imports_and_exports = get_pc_import_and_export(m,country,model_type)
+    import_ = [sum(pc_imports_and_exports[1][nb][t] for nb in keys(pc_imports_and_exports[1])) for t in timesteps]
+    export_ = [sum(pc_imports_and_exports[2][nb][t] for nb in keys(pc_imports_and_exports[2])) for t in timesteps]
+
+    return import_,export_
+end
+
+function get_net_import_and_export(m,country,model_type)
+    timesteps = collect(1:length(m.ext[:timeseries][:demand][country]))
     if model_type == "NTC"
         import_ = [sum(JuMP.value.(m.ext[:variables][:import][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in timesteps]
         export_ = [sum(JuMP.value.(m.ext[:variables][:export][country,neighbor,t] for neighbor in m.ext[:sets][:connections][country])) for t in timesteps]
@@ -69,7 +78,7 @@ function get_pc_import_and_export(m,country,model_type,soc = nothing,production=
         export_ = Dict(nb => [sum(JuMP.value.(m.ext[:variables][:export][country,nb,p,t]) for p in trade_prices[nb]) for t in timesteps] for nb in m.ext[:sets][:neighbors])
         m_dp = nothing
     elseif model_type == "TCS"
-        import_,export_ = get_import_and_export(m,country,model_type)
+        import_,export_ = get_net_import_and_export(m,country,model_type)
         net_import_profile = import_-export_
         println("Solving auxiliary model for congestion rents")
         m_dp = build_model_for_import_curve(0,soc,production,gpd)
