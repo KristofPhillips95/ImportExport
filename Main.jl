@@ -4,8 +4,7 @@ include("ImportExport/build_and_save_cost_curves.jl")
 using Gurobi
 
 
-function main(gpd, results_path, simplifieds, types, geo_scopes, target_caps_for_curves,stepsizes, trans_caps_others)
-    results = DataFrame()
+function main(gpd,results, results_path, simplifieds, types, geo_scopes, target_caps_for_curves,stepsizes, trans_caps_others)
     for simpl in simplifieds
         gpd["simplified"] = simpl
 
@@ -27,7 +26,7 @@ function main(gpd, results_path, simplifieds, types, geo_scopes, target_caps_for
                                 m = Model(optimizer_with_attributes(Gurobi.Optimizer))
                                 row = full_build_and_optimize_investment_model(m, global_param_dict=gpd)
 
-                                global results = vcat(results,row)
+                                results = vcat(results,row)
                                 # Write results to CSV after each iteration
                                 CSV.write(results_path, results)
                             end
@@ -43,7 +42,7 @@ function main(gpd, results_path, simplifieds, types, geo_scopes, target_caps_for
                             m = Model(optimizer_with_attributes(Gurobi.Optimizer))
                             row = full_build_and_optimize_investment_model(m, global_param_dict=gpd)
 
-                            global results = vcat(results,row)
+                            results = vcat(results,row)
                             # Write results to CSV after each iteration
                             CSV.write(results_path, results)
                         end
@@ -56,7 +55,7 @@ function main(gpd, results_path, simplifieds, types, geo_scopes, target_caps_for
                         m = Model(optimizer_with_attributes(Gurobi.Optimizer))
                         row = full_build_and_optimize_investment_model(m, global_param_dict=gpd)
 
-                        global results = vcat(results,row)
+                        results = vcat(results,row)
                         # Write results to CSV after each iteration
                         CSV.write(results_path, results)
                     end
@@ -69,7 +68,7 @@ function main(gpd, results_path, simplifieds, types, geo_scopes, target_caps_for
                 m = Model(optimizer_with_attributes(Gurobi.Optimizer))
                 row = full_build_and_optimize_investment_model(m, global_param_dict=gpd)
 
-                global results = vcat(results,row)
+                results = vcat(results,row)
                 # Write results to CSV after each iteration
                 CSV.write(results_path, results)
             end

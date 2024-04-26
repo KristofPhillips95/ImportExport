@@ -32,7 +32,7 @@ run_name = "neighbors_only_LUGFR_out_$(gpd["endtime"])"
 # m = Model(optimizer_with_attributes(Gurobi.Optimizer))
 # row = full_build_and_optimize_investment_model(m,global_param_dict = gpd)
 t_start = time()
-main(gpd,results_path,[true],types,geo_scopes,target_caps_for_curves,stepsizes,trans_caps_others)
+main(gpd,results,results_path,[true],types,geo_scopes,target_caps_for_curves,stepsizes,trans_caps_others)
 
 t_total = time()-t_start
 print(t_total)

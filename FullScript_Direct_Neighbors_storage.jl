@@ -31,7 +31,7 @@ run_name = "Direct_neighbors_storage_$(gpd["country"])_$(gpd["endtime"])"
 results_path = joinpath("Results","InvestmentModelResults_2","$(run_name).csv")
 
 t_start = time()
-main(gpd,results_path,[false],types,geo_scopes,target_caps_for_curves,stepsizes,trans_caps_others)
+main(gpd,results,results_path,[false],types,geo_scopes,target_caps_for_curves,stepsizes,trans_caps_others)
 t_total = time()-t_start
 print(t_total)
 
