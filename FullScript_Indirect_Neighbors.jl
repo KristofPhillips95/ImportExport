@@ -4,7 +4,7 @@ using Gurobi
 #Initialise global parameters
 gpd = Dict()
 
-gpd["endtime"] = 24*365
+gpd["endtime"] = 24*364
 gpd["Climate_year"] = 1984
 gpd["Climate_year_ts"] = 2012
 gpd["ValOfLostLoad"] = 8000
@@ -15,14 +15,14 @@ gpd["transport_price"] = 0.1
 gpd["disc_rate"] = 0.07
 
 
-types = ["TCPC","isolated","NTC","TCS"]
+types = ["NTC"]
 stepsizes = [100]
 target_caps_for_curves = ["endo_invest","TYNDP"]
 geo_scopes = [["DE00","NL00","FR00","UK00","BE00"],"All"]
 trans_caps_others = ["S",1e10]
 simplifieds = [true]
 
-run_name = "indirect_neighbors_$(gpd["endtime"])"
+run_name = "indirect_neighbors_extra_$(gpd["endtime"])"
 results_path = joinpath("Results","InvestmentModelResults_2","$(run_name).csv")
 
 #Start looping over desired global parameters: 
