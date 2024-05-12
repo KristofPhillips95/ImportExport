@@ -211,8 +211,8 @@ function build_single_trade_curve_investment_model!(m::Model,endtime,VOLL,transp
     t_end = time()
     println("Time needed for nodal balance: $(t_end - t_start)")
     t_start = time()
-    m.ext[:objective] = @objective(m,Min,sum(investment_cost) + sum(VOM_cost) + sum(CO2_cost) + sum(fuel_cost) + sum(load_shedding_cost) + sum(trade_premium) + sum(import_cost) - sum(export_revenue))
-    #m.ext[:objective] = @objective(m,Min,sum(investment_cost) + sum(VOM_cost) + sum(CO2_cost) + sum(fuel_cost) + sum(load_shedding_cost) + sum(trade_premium) + total_import_cost - total_export_rev)
+    #m.ext[:objective] = @objective(m,Min,sum(investment_cost) + sum(VOM_cost) + sum(CO2_cost) + sum(fuel_cost) + sum(load_shedding_cost) + sum(trade_premium) + sum(import_cost) - sum(export_revenue))
+    m.ext[:objective] = @objective(m,Min,sum(investment_cost) + sum(VOM_cost) + sum(CO2_cost) + sum(fuel_cost) + sum(load_shedding_cost) + sum(trade_premium) + total_import_cost - total_export_rev)
 
     t_end = time()
     println("Time needed for objective: $(t_end - t_start)")

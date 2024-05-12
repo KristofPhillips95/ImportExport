@@ -94,7 +94,7 @@ using Plots
 
 gpd = Dict()
 
-endtime = gpd["endtime"] = 24*2
+endtime = gpd["endtime"] = 24*20
 CY = gpd["Climate_year"] = 1984
 CY_ts= gpd["Climate_year_ts"] = 2012
 VOLL = gpd["ValOfLostLoad"] = 8000
@@ -122,7 +122,6 @@ m2 = full_build_and_return_investment_model(m2,global_param_dict = gpd)
 gpd["target_cap_for_curves"] = "no_fix"
 m3 = full_build_and_return_investment_model(m3,global_param_dict = gpd)
 
-
 optimize!(m1)
 optimize!(m2)
 optimize!(m3)
@@ -131,8 +130,10 @@ get_net_import_and_export(m3,"SE03","TCS")[1]
 get_import_and_export(m3,"SE03","TCS")[1]
 get_import_and_export(m3,"SE03","TCS")[2]
 
-JuMP.value.(m3.ext[:variables][:import])
 
+
+
+JuMP.value.(m3.ext[:objective])
 get_total_trade_costs_and_rents(m3,"SE03","TCS")
 get_pc_import_and_export(m3,"SE03","TCS")[1]
 
