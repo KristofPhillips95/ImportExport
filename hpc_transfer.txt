@@ -9,7 +9,7 @@ rsync --progress --exclude *Results* --exclude *slurm*  --delete OneDrive\ -\ KU
 rsync --progress --exclude *git* --exclude *Figures* vsc34888@hpc:/data/leuven/348/vsc34888/ImportExportCurves/ OneDrive\ -\ KU\ Leuven/ImportExportCurves -anv
 
 
-rsync --progress --exclude "*" --include *slurm* vsc34888@hpc:/data/leuven/348/vsc34888/ImportExportCurves/ OneDrive\ -\ KU\ Leuven/ImportExportCurves -anv
+rsync --progress vsc34888@hpc:/data/leuven/348/vsc34888/ImportExportCurves/ OneDrive\ -\ KU\ Leuven/ImportExportCurves -anv
 
 #Results
 rsync --progress vsc34888@hpc:/data/leuven/348/vsc34888/ImportExportCurves/Results/ OneDrive\ -\ KU\ Leuven/ImportExportCurves/Results -anv
